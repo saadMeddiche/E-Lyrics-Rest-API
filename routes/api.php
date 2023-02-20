@@ -19,6 +19,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// Route::post('/test',function(){
+//     return 15;
+// })->middleware('checkManager');
 
 Route::controller(AuthController::class)->group(function () {
     Route::post('login', 'login');
