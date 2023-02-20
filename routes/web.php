@@ -18,11 +18,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-    // $user = DB::table('users')->insert([
-    //     'name' => 'rachid daoudi',
-    //     'email' => 'manager@gmail.com',
-    //     'role' => UserRoleEnum::User,
-    //     'password' => 'manager',
-    // ]);
+    // $user = UserRoleEnum::Admin->value;
     // dd($user);
 });
