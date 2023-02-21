@@ -15,7 +15,7 @@ class MusicFormRequest extends FormRequest
      */
     public function authorize()
     {
-        return Auth()->user()->can('create', Music::class);
+        return Auth()->check();
     }
 
     /**
@@ -28,6 +28,7 @@ class MusicFormRequest extends FormRequest
         return [
             'title' => 'required',
             'artist_id' => 'required',
+            'user_id' => 'required|exists:users,id'
         ];
     }
     public function failedValidation(Validator $validator)

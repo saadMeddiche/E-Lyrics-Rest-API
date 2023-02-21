@@ -35,6 +35,7 @@ class MusicController extends Controller
      */
     public function store(MusicFormRequest $request)
     {
+        $this->authorize('store', Music::class);
         $validated = $request->validated();
 
             $music = Music::create($validated);

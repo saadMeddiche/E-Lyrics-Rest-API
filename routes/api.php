@@ -24,10 +24,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 
-Route::middleware(['checkAdmin','checkManager'])->group(function () {
-    Route::get('/music', [MusicController::class, 'index']);
+Route::get('/music', [MusicController::class, 'index']);
+Route::get('/music/{music}', [MusicController::class, 'show']);
+Route::middleware(['auth','checkAdmin'])->group(function () {
     Route::post('/music', [MusicController::class, 'store']);
-    Route::get('/music/{music}', [MusicController::class, 'show']);
     Route::put('/music/{music}', [MusicController::class, 'update']);
     Route::delete('/music/{music}', [MusicController::class, 'destroy']);
 });
