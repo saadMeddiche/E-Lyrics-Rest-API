@@ -21,7 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::middleware([])->group(function () {
+Route::middleware(['checkAdmin','checkManager'])->group(function () {
     Route::get('/music', [MusicController::class, 'index']);
     Route::post('/music', [MusicController::class, 'store']);
     Route::get('/music/{music}', [MusicController::class, 'show']);

@@ -35,6 +35,9 @@ class AuthController extends Controller
             'status' => 'success',
             'user' => $user,
             'authorisation' => [
+                'email'=>$user->email,
+                'password'=> $user->password,
+                'name'=>$user->name,
                 'token' => $token,
                 'type' => 'bearer',
             ]
@@ -42,7 +45,7 @@ class AuthController extends Controller
     }
 
     public function register(Request $request){
-        
+
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
