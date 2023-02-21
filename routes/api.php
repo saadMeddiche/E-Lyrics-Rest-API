@@ -1,7 +1,11 @@
 <?php
 
 use App\Http\Controllers\MusicController;
+
+use App\Http\Controllers\AlbumController;
+
 use App\Models\User;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -39,13 +43,28 @@ Route::middleware(['auth','checkAdmin'])->group(function () {
 Route::post('/test',function(){
     return 45;
 })->middleware(['checkAdminManager','auth']);
+Route::post('/test', function () {
+    return 15;
+});
+
+
+
+
 
 Route::controller(AuthController::class)->group(function () {
     Route::post('login', 'login');
     Route::post('register', 'register');
     Route::post('logout', 'logout');
     Route::post('refresh', 'refresh');
+
+
+});
+
+Route::apiResource('/album', AlbumController::class)->middleware(['checkAdminManager']);
+
+    Route::post('profile', 'profile');
     Route::patch('editProfile', 'editProfile');
 });
+
 
 
