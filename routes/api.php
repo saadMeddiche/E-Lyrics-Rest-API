@@ -3,6 +3,7 @@
 use App\Http\Controllers\MusicController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
 Route::middleware([])->group(function () {
     Route::get('/music', [MusicController::class, 'index']);
     Route::post('/music', [MusicController::class, 'store']);
@@ -27,3 +29,14 @@ Route::middleware([])->group(function () {
     Route::delete('/music/{music}', [MusicController::class, 'destroy']);
 });
 
+
+// Route::post('/test',function(){
+//     return 15;
+// })->middleware('checkManager');
+
+Route::controller(AuthController::class)->group(function () {
+    Route::post('login', 'login');
+    Route::post('register', 'register');
+    Route::post('logout', 'logout');
+    Route::post('refresh', 'refresh');
+});
