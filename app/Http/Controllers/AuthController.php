@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProfileRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -49,7 +51,7 @@ class AuthController extends Controller
             'password' => 'required|string|min:6',
         ]);
 
-        $user = User::create([
+        $user = DB::table('users')->insert([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
@@ -83,6 +85,28 @@ class AuthController extends Controller
                 'token' => Auth::refresh(),
                 'type' => 'bearer',
             ]
+        ]);
+    }
+
+    public function profile(){
+        $user = DB::table('users')->find(Auth::user()->id);
+        return response()->json([
+            'status' => 'success',
+            'name' => $user->name,
+            'email' => $user->email,
+            'role' => $user->role,
+        ]);
+    }
+
+    public function EditProfile(ProfileRequest $request){
+        $user = DB::table('users')->where('id',Auth::user()->id)->update([
+            'name' => $request->name,
+        ]);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'User updated successfully',
+            'user' => $user,
         ]);
     }
 
