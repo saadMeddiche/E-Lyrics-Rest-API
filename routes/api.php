@@ -17,7 +17,6 @@ use App\Http\Controllers\ParoleController;
 
 /*================================Paroles================================*/
 /* Show All Paroles */
-
 Route::get('Paroles', [ParoleController::class, 'index']);
 
 /* Add A Parole */
@@ -29,3 +28,5 @@ Route::put('Parole/{id}', [ParoleController::class, 'update']);
 /* Delete A Parole */
 Route::delete('Parole/{id}', [ParoleController::class, 'destroy']);
 /*================================End Paroles================================*/
+
+//test
