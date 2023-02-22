@@ -99,15 +99,29 @@ class AuthController extends Controller
     }
 
     public function EditProfile(ProfileRequest $request){
-        $user = DB::table('users')->where('id',Auth::user()->id)->update([
-            'name' => $request->name,
-        ]);
+        $passwirdUser = Auth::user()->password;
+        if(Hash::check($request->old_password,$passwirdUser)){
+            $user = DB::table('users')->where('id',Auth::user()->id)->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password)
+            ]);
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'User updated successfully',
-            'user' => $user,
-        ]);
+            return response()->json([
+                'status' => 'success',
+                'message' => 'User updated successfully'
+            ]);
+
+        }
+        else{
+
+            return response()->json([
+                'status' => 'error',
+                'message' => 'error updated',
+            ], 401);
+
+        }
+        
     }
 
 }
