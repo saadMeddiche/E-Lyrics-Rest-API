@@ -38,12 +38,12 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('register', 'register');
     Route::post('logout', 'logout');
     Route::post('refresh', 'refresh');
+    Route::post('profile', 'profile');
+    Route::patch('editProfile', 'editProfile');
 
 });
 
 Route::apiResource('/album', AlbumController::class)->middleware(['checkAdminManager']);
 
-    Route::post('profile', 'profile');
-    Route::patch('editProfile', 'editProfile');
-});
+
 
