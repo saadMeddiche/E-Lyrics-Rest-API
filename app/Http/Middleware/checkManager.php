@@ -17,7 +17,7 @@ class checkManager
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth()->user()->role == UserRoleEnum::Manager->value){
+        if(Auth()->user()->role == UserRoleEnum::Manager){
             return $next($request);
         }else{
             return response()->json([
