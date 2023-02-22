@@ -47,5 +47,3 @@ Route::apiResource('/album', AlbumController::class)->middleware(['checkAdminMan
     Route::patch('editProfile', 'editProfile');
 });
 
-
-
