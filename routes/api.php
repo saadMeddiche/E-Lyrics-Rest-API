@@ -44,6 +44,7 @@ Route::controller(AuthController::class)->group(function () {
 });
 
 Route::apiResource('/album', AlbumController::class)->middleware(['checkAdminManager']);
+Route::apiResource('/artist', ArtistController::class)->middleware(['checkAdminManager']);
 
 
 
