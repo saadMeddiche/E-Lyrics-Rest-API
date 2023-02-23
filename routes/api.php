@@ -39,7 +39,7 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('logout', 'logout');
     Route::post('refresh', 'refresh');
     Route::post('profile', 'profile');
-    Route::patch('editProfile', 'editProfile');
+    Route::put('editProfile', 'editProfile');
 
 });
 
