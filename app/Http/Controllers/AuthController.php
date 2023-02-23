@@ -51,7 +51,7 @@ class AuthController extends Controller
             'password' => 'required|string|min:6',
         ]);
 
-        $user = DB::table('users')->insert([
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
@@ -89,12 +89,10 @@ class AuthController extends Controller
     }
 
     public function profile(){
-        $user = DB::table('users')->find(Auth::user()->id);
+        $user = DB::table('users')->select('name','email')->find(Auth::user()->id);
         return response()->json([
             'status' => 'success',
-            'name' => $user->name,
-            'email' => $user->email,
-            'role' => $user->role,
+            'user' =>$user
         ]);
     }
 
@@ -117,7 +115,7 @@ class AuthController extends Controller
 
             return response()->json([
                 'status' => 'error',
-                'message' => 'error updated',
+                'message' => 'error password',
             ], 401);
 
         }
