@@ -23,6 +23,8 @@ class AuthController extends Controller
         ]);
 
         $login = $request->only('email','password');
+        
+
         $token = Auth::attempt($login);
 
         if(!$token){
@@ -119,6 +121,10 @@ class AuthController extends Controller
             ], 401);
 
         }
+        
+    }
+
+    public function delete(){
         
     }
 
