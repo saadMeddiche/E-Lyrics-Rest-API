@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MusicController;
 
 use App\Models\User;
 
@@ -26,6 +27,23 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
+
+Route::get('/music', [MusicController::class, 'index']);
+Route::get('/music/{music}', [MusicController::class, 'show']);
+Route::middleware(['auth','checkAdmin'])->group(function () {
+    Route::post('/music', [MusicController::class, 'store']);
+    Route::put('/music/{music}', [MusicController::class, 'update']);
+    Route::delete('/music/{music}', [MusicController::class, 'destroy']);
+});
+
+
+// Route::post('/test',function(){
+//     return 15;
+// })->middleware('checkManager');
+Route::post('/test',function(){
+    return 45;
+})->middleware(['checkAdminManager','auth']);
 Route::post('/test', function () {
     return 15;
 });
