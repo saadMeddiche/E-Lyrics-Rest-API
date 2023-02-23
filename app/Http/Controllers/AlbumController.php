@@ -7,12 +7,14 @@ use App\Models\User;
 use App\Http\Requests\StoreAlbumRequest;
 use App\Http\Requests\UpdateAlbumRequest;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class AlbumController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth:api');
+        //  $this->authorizeResource(Album::class, 'album');
     }
     /**
      * Display a listing of the resource.
@@ -21,10 +23,11 @@ class AlbumController extends Controller
      */
     public function index()
     {
-        $albums = Album::all();
+        $albums = Album::all(['id', 'title', 'description']);
         return response()->json([
             'status' => 'success',
             'albums' => $albums
+
         ]);
     }
 
@@ -51,6 +54,7 @@ class AlbumController extends Controller
         $album = new album;
         $album->title = $request->title;
         $album->description = $request->description;
+        $album->user_id = Auth::user()->id;
         $album->save();
         return response()->json(['message' => 'Product Added Successfully'], 200);
     }
@@ -96,19 +100,18 @@ class AlbumController extends Controller
      */
     public function update(UpdateAlbumRequest $request, $id)
     {
-        //
-
         $album = Album::find($id);
-        if ($album) {
-            $album->title = $request->title;
-            $album->description = $request->description;
-            $album->update();
-            return response()->json(['message' => 'Product Updated Successfully'], 200);
-        } else {
-            return response()->json([
-                'message' => 'No Records Found'
-            ], 404);
-        }
+        $this->authorize('update', $album);
+            if ($album) {
+                $album->title = $request->title;
+                $album->description = $request->description;
+                $album->update();
+                return response()->json(['message' => 'Product Updated Successfully'], 200);
+            } else {
+                return response()->json([
+                    'message' => 'No Records Found'
+                ], 404);
+            }
     }
 
     /**
@@ -121,6 +124,7 @@ class AlbumController extends Controller
     {
         //
         $album = Album::find($id);
+        $this->authorize('delete', $album);
         if ($album) {
             $album->delete();
             return response()->json(['message' => 'Product Deleted Successfully'], 200);

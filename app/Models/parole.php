@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Album extends Model
+class parole extends Model
 {
     use HasFactory;
-
-    protected $table = 'albums';
+    protected $table = 'paroles';
     protected $fillable = [
-        'title',
-        'description',
-        'user_id'
+        'Parole',
+        'Langue',
+        'ID_Music',
+        'User_Id'
     ];
 }

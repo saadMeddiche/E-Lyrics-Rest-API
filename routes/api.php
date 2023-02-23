@@ -2,14 +2,15 @@
 
 use App\Http\Controllers\MusicController;
 
-use App\Http\Controllers\AlbumController;
-
 use App\Models\User;
 
 use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AlbumController;
+use App\Http\Controllers\ParoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,24 +48,30 @@ Route::post('/test', function () {
     return 15;
 });
 
-
-
-
-
 Route::controller(AuthController::class)->group(function () {
     Route::post('login', 'login');
     Route::post('register', 'register');
     Route::post('logout', 'logout');
     Route::post('refresh', 'refresh');
-
-
+    Route::post('profile', 'profile');
+    Route::put('editProfile', 'editProfile');
 });
+
+/*================================Paroles================================*/
+/* Show All Paroles */
+Route::get('Paroles', [ParoleController::class, 'index']);
+
+/* Show One Parole */
+Route::get('Paroles/{id}', [ParoleController::class, 'show']);
+
+/* Add A Parole */
+Route::post('Parole/add', [ParoleController::class, 'store']);
+
+/* Update A Parole */
+Route::put('Parole/{id}', [ParoleController::class, 'update']);
+
+/* Delete A Parole */
+Route::delete('Parole/{id}', [ParoleController::class, 'destroy']);
+/*================================End Paroles================================*/
 
 Route::apiResource('/album', AlbumController::class)->middleware(['checkAdminManager']);
-
-    Route::post('profile', 'profile');
-    Route::patch('editProfile', 'editProfile');
-});
-
-
-

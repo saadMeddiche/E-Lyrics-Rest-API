@@ -23,3 +23,7 @@ Route::get('/', function () {
     
     // dd($user);
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
