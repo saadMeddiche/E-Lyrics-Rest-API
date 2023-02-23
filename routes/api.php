@@ -57,12 +57,17 @@ Route::controller(AuthController::class)->group(function () {
     Route::put('editProfile', 'editProfile');
 });
 
+
+Route::apiResource('/album', AlbumController::class)->middleware(['checkAdminManager']);
+Route::apiResource('/artist', ArtistController::class)->middleware(['checkAdminManager']);
+
 /*================================Paroles================================*/
 /* Show All Paroles */
 Route::get('Paroles', [ParoleController::class, 'index']);
 
 /* Show One Parole */
 Route::get('Paroles/{id}', [ParoleController::class, 'show']);
+
 
 /* Add A Parole */
 Route::post('Parole/add', [ParoleController::class, 'store']);
@@ -74,4 +79,3 @@ Route::put('Parole/{id}', [ParoleController::class, 'update']);
 Route::delete('Parole/{id}', [ParoleController::class, 'destroy']);
 /*================================End Paroles================================*/
 
-Route::apiResource('/album', AlbumController::class)->middleware(['checkAdminManager']);
