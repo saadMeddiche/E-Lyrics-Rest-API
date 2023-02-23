@@ -2,11 +2,13 @@
 
 namespace App\Policies;
 
+use App\Models\Album;
 use App\Models\User;
-use App\Models\parole;
+use App\Enum\UserRoleEnum;
+use Illuminate\Auth\Access\Response;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class parolePolicy
+class AlbumPolicy
 {
     use HandlesAuthorization;
 
@@ -18,19 +20,21 @@ class parolePolicy
      */
     public function viewAny(User $user)
     {
-        return $user->hasPermissionTo('Show-Paroles') || $user->hasPermissionTo('*');
+        //
+        return true;
     }
 
     /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\parole  $parole
+     * @param  \App\Models\Album  $album
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, parole $parole)
+    public function view(User $user, Album $album)
     {
-        return $user->hasPermissionTo('Show-Parole') && $user->id == $parole->User_Id || $user->hasPermissionTo('*');
+        //
+        return true;
     }
 
     /**
@@ -41,41 +45,46 @@ class parolePolicy
      */
     public function create(User $user)
     {
-        return   $user->hasPermissionTo('Add-Parole') || $user->hasPermissionTo('*');
+        //
+        return auth()->check() ? true : false;
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\parole  $parole
+     * @param  \App\Models\Album  $album
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, parole $parole)
+    public function update(User $user, Album $album)
     {
-        return $user->id == $parole->User_Id && $user->hasPermissionTo('Update-Parole') || $user->hasPermissionTo('*');
+        //
+        // return auth()->check() ? true : false;
+        return $user->id == $album->user_id ? Response::allow()
+            : Response::deny('Your are not authorized.');
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\parole  $parole
+     * @param  \App\Models\Album  $album
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, parole $parole)
+    public function delete(User $user, Album $album)
     {
-        return $user->id == $parole->User_Id && $user->hasPermissionTo('Delete-Parole');
+        //
+        return $user->id == $album->user_id;
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\parole  $parole
+     * @param  \App\Models\Album  $album
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, parole $parole)
+    public function restore(User $user, Album $album)
     {
         //
     }
@@ -84,10 +93,10 @@ class parolePolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\parole  $parole
+     * @param  \App\Models\Album  $album
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, parole $parole)
+    public function forceDelete(User $user, Album $album)
     {
         //
     }

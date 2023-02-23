@@ -2,11 +2,9 @@
 
 namespace App\Http\Requests;
 
-use App\Enums\Langague;
-use BenSampo\Enum\Rules\EnumValue;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ParoleFormValidation extends FormRequest
+class ProfileRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,20 +23,11 @@ class ParoleFormValidation extends FormRequest
      */
     public function rules()
     {
-
         return [
-            'Parole' => [
-                'required',
-                'string'
-            ],
-            'Langue' => [
-                'required',
-                new EnumValue(Langague::class)
-            ],
-            'ID_Music' => [
-                'required',
-                'integer'
-            ]
+            'name' => 'string|max:255',
+            'email' => 'string|email|max:255|unique:users',
+            'password' => 'string',
+            'old_password' => 'required|string',
         ];
     }
 }

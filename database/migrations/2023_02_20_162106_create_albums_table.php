@@ -1,9 +1,8 @@
 <?php
 
-use App\Enums\Langague;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
@@ -14,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('paroles', function (Blueprint $table) {
+        Schema::create('albums', function (Blueprint $table) {
             $table->id();
-            $table->string('Parole');
-            $table->enum('Langue', Langague::getValues())->default(Langague::ENGLISH);
-            $table->string('ID_Music');
+            $table->string('title');
+            $table->string('description');
+            $table->integer('user_id');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('paroles');
+        Schema::dropIfExists('albums');
     }
 };
