@@ -1,14 +1,9 @@
 <?php
 
-
-use App\Http\Controllers\AlbumController;
-
-use App\Models\User;
-
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\ParoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,29 +16,56 @@ use App\Http\Controllers\AuthController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+/*================================Paroles================================*/
+/* Show All Paroles */
 
+Route::get('Paroles', [ParoleController::class, 'index']);
 
-Route::post('/test', function () {
-    return 15;
-});
+/* Show One Parole */
+Route::get('Paroles/{id}', [ParoleController::class, 'show']);
 
+/* Add A Parole */
+Route::post('Parole/add', [ParoleController::class, 'store']);
 
+/* Update A Parole */
+Route::put('Parole/{id}', [ParoleController::class, 'update']);
 
+/* Delete A Parole */
+Route::delete('Parole/{id}', [ParoleController::class, 'destroy']);
+/*================================End Paroles================================*/
 
-Route::controller(AuthController::class)->group(function () {
-    Route::post('login', 'login');
-    Route::post('register', 'register');
-    Route::post('logout', 'logout');
-    Route::post('refresh', 'refresh');
-    Route::post('profile', 'profile');
-    Route::put('editProfile', 'editProfile');
+/*================================Roles================================*/
+/* Show All Role */
+Route::get('Roles', [RoleController::class, 'index']);
 
-});
+/* Show One Role */
+Route::get('Roles/{id}', [RoleController::class, 'show']);
 
-Route::apiResource('/album', AlbumController::class)->middleware(['checkAdminManager']);
+/* Add A Role*/
+Route::post('Role/add', [RoleController::class, 'store']);
 
+/* Update A Role */
+Route::put('Role/{role_id}', [RoleController::class, 'update']);
 
+/* Show permissions of a  Role */
+Route::get('Roles/permissions/{role_id}', [RoleController::class, 'ShowPermissionsOfaRole']);
 
+/* Show roles of a User */
+Route::get('User/roles/{user_id}', [RoleController::class, 'ShowRolesOfaPermissions']);
+
+/* Delete A Role */
+Route::delete('Role/{role_id}', [RoleController::class, 'destroy']);
+
+/* Assign Permissions to Role */
+Route::post('Role/assignPermissions', [RoleController::class, 'assignPermissions']);
+
+/* Assign Role to User */
+Route::post('Role/assignRole', [RoleController::class, 'assignRole']);
+
+/* Remove Permissions from a Role */
+Route::post('Role/RemovePermissions', [RoleController::class, 'RemovePermissions']);
+
+/* Remove Role from a user */
+Route::post('Role/RemoveRole', [RoleController::class, 'RemoveRole']);
+
+/*================================End Roles================================*/
