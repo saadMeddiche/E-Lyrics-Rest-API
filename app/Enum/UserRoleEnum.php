@@ -4,7 +4,7 @@ namespace App\Enum;
 use Illuminate\Validation\Rules\Enum;
 
 class UserRoleEnum extends Enum{
-    
+
     const Admin = 'admin';
     const Manager = 'manager';
     const User = 'user';
@@ -20,7 +20,7 @@ class UserRoleEnum extends Enum{
 
     public function privileges():Array
     {
-        return match($this){
+        return match($this->value){
             self::Admin => [
                 'edit',
                 'insert',
@@ -42,4 +42,3 @@ class UserRoleEnum extends Enum{
 
 
 
-    
