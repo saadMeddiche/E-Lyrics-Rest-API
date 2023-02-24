@@ -15,4 +15,9 @@ class Album extends Model
         'description',
         'user_id'
     ];
+
+    public function Musiques()
+    {
+        return $this->hasMany(Music::class);
+    }
 }

@@ -56,7 +56,7 @@ class AlbumController extends Controller
         $album->description = $request->description;
         $album->user_id = Auth::user()->id;
         $album->save();
-        return response()->json(['message' => 'Product Added Successfully'], 200);
+        return response()->json(['message' => 'Album Added Successfully'], 200);
     }
 
     /**
@@ -106,7 +106,7 @@ class AlbumController extends Controller
                 $album->title = $request->title;
                 $album->description = $request->description;
                 $album->update();
-                return response()->json(['message' => 'Product Updated Successfully'], 200);
+                return response()->json(['message' => 'Album Updated Successfully'], 200);
             } else {
                 return response()->json([
                     'message' => 'No Records Found'
@@ -127,7 +127,7 @@ class AlbumController extends Controller
         $this->authorize('delete', $album);
         if ($album) {
             $album->delete();
-            return response()->json(['message' => 'Product Deleted Successfully'], 200);
+            return response()->json(['message' => 'Album Deleted Successfully'], 200);
         } else {
             return response()->json([
                 'message' => 'No Records Found'

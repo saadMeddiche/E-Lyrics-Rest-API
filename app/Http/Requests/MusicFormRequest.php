@@ -27,8 +27,9 @@ class MusicFormRequest extends FormRequest
     {
         return [
             'title' => 'required',
-            'artist_id' => 'required',
-            'user_id' => 'required|exists:users,id'
+            'artist_id' => 'required|exists:artists,id',
+            // 'user_id' => 'required|exists:users,id',
+            'album_id' => 'required|exists:albums,id'
         ];
     }
     public function failedValidation(Validator $validator)
