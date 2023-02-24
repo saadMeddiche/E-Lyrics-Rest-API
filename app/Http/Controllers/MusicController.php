@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\MusicFormRequest;
 use App\Models\Music;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 use function response;
 
 class MusicController extends Controller
@@ -37,7 +39,7 @@ class MusicController extends Controller
     {
         $this->authorize('store', Music::class);
         $validated = $request->validated();
-
+        $validated['user_id'] = Auth::user()->id;
             $music = Music::create($validated);
             return response()->json([
                 'code' => 201,

@@ -1,15 +1,16 @@
 <?php
 
-use App\Http\Controllers\MusicController;
-
 use App\Models\User;
 
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AlbumController;
+use App\Http\Controllers\MusicController;
+use App\Http\Controllers\ArtistController;
 use App\Http\Controllers\ParoleController;
 
 /*
@@ -31,7 +32,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/music', [MusicController::class, 'index']);
 Route::get('/music/{music}', [MusicController::class, 'show']);
-Route::middleware(['auth','checkAdmin'])->group(function () {
+Route::middleware(['auth','checkAdminManager'])->group(function () {
     Route::post('/music', [MusicController::class, 'store']);
     Route::put('/music/{music}', [MusicController::class, 'update']);
     Route::delete('/music/{music}', [MusicController::class, 'destroy']);
@@ -58,8 +59,8 @@ Route::controller(AuthController::class)->group(function () {
 });
 
 
-Route::apiResource('/album', AlbumController::class)->middleware(['checkAdminManager']);
-Route::apiResource('/artist', ArtistController::class)->middleware(['checkAdminManager']);
+Route::apiResource('/album', AlbumController::class)->middleware(['auth','checkAdminManager']);
+Route::apiResource('/artist', ArtistController::class)->middleware(['auth','checkAdminManager']);
 
 /*================================Paroles================================*/
 /* Show All Paroles */

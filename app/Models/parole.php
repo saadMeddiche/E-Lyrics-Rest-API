@@ -15,4 +15,9 @@ class parole extends Model
         'ID_Music',
         'User_Id'
     ];
+
+    public function Musiques()
+    {
+        return $this->belongsTo(Music::class);
+    }
 }

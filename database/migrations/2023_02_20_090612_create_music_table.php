@@ -18,6 +18,13 @@ return new class extends Migration
             $table->string('title');
             $table->integer('artist_id');
             $table->integer('user_id');
+            $table->integer('album_id');
+
+
+
+            $table->foreign('artist_id')->references('id')->on('artists');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('album_id')->references('id')->on('albums');
 
             $table->timestamps();
         });

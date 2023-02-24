@@ -36,7 +36,8 @@ class ParoleFormValidation extends FormRequest
             ],
             'ID_Music' => [
                 'required',
-                'integer'
+                'integer',
+                'exist:music,id'
             ]
         ];
     }
